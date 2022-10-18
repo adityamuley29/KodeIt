@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "This is the backend server for Kode",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aditya Muley",
+  "license": "ISC",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "compile-run": "^2.3.4",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20",
+    "uuid": "^9.0.0"
+  }
+}
