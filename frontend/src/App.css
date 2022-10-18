@@ -34,9 +34,127 @@
     transform: rotate(360deg);
   }
 }
+
+.appHeader{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+}
+.selectLanguage{
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-evenly;
+  border: 2px solid #d3dce6;
+  background: #f5f5f5;
+  padding: 15px 15px;
+  min-width: 12vw;
+}
+.selectLanguage label{
+  font-weight: 500;
+
+}
+.selectLanguage select{
+  width: 12vh;
+  outline:none ;
+  border:1px solid #d3dce6;
+}
 .codeArea{
   display: flex;
   justify-content: start;
-  align-items: start;
-  flex-direction: column;
+  align-items: flex-start;
+  /* flex-direction: column; */
+  height: 83vh;
+  background-color: #f5f5f5;
+  border: 2px solid #d3dce6;
+  font-family: "euclid_circular";
+  
+}
+.inputArea{
+  position: relative;
+  width: 50%;
+
+
+}
+.inputArea textarea{
+  border: none;
+  overflow: auto;
+  outline: none;
+  background-color: #f5f5f5;;
+font-family: euclid_circular;
+font-weight: 500;
+font-size: 16px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.outputArea{
+  font-family: euclid_circular;
+  font-weight: 500;
+  font-size: 16px;
+  position: relative;
+  background-color: #f5f5f5;
+  width: 50%;
+  height: 100%;
+  border-left: 2px solid #d3dce6;
+
+}
+
+.header-Area{
+  position: relative;
+  height: 8vh;
+  width: auto;
+  background-color: white;
+  border-bottom: 2px solid #d3dce6;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#header-Area-input .inputFileName{
+  display: inline-flex;
+  background-color: #f5f5f5;
+  text-align: center;
+  /* height: 5vh; */
+  padding: 20px 24px;
+  font-weight: 500;
+  font-size: 18px;
+  border-right: 2px solid #d3dce6;
+  
+
+}
+.header-Area-input-buttons{
+  position: relative;
+  padding: 12px 20px;
+}
+.header-Area-input-buttons .runButton{
+  display: flex;
+  min-width: 67px;
+  min-height: 32px;
+  margin: 0 20px 0 16px;
+  justify-content: center;
+  font-family: "euclid_circular";
+  text-align: center;
+  cursor: pointer;
+  padding: 6px 20px;
+  background: #0556f3;
+  font-size: 14px;
+  line-height: 20px;
+  color: #ffffff;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+  z-index: 109;
+  font-weight: bold;
+}
+
+.outputTitle{
+  padding-left: 20px;
+  font-size: 18px;
+
 }

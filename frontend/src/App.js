@@ -7,23 +7,25 @@ function App() {
 
   return (
     <div className="App">
-      <h1>KodeIt - Online Compiler</h1>
+      <div className="appHeader">
+        <h1 className="projectTitle">KodeIt - Online Compiler</h1>
 
-      <div className="selectLanguage">
-        <label>Language: </label>
-        <select
-          value={language}
-          onChange={(e) => {
-            setLanguage(e.target.value);
-          }}
-        >
-          <option value="cpp">C++</option>
-          <option value="py">Python</option>
-        </select>
+        <div className="selectLanguage">
+          <label>Language :</label>
+          <select
+            value={language}
+            onChange={(e) => {
+              setLanguage(e.target.value);
+            }}
+          >
+            <option value="cpp">C++</option>
+            <option value="py">Python</option>
+          </select>
+        </div>
       </div>
-      <br />
 
-      <CodeArea language={language}/>
+
+      <CodeArea language={language} />
     </div>
   );
 }

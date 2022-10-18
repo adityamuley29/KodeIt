@@ -1,11 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import stubs from "./defaultCodes.js";
+import moment from "moment";
 
 function CodeArea({ language }) {
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [status, setStatus] = useState("");
   const [jobId, setJobId] = useState("");
+  const [jobDetails, setJobDetails] = useState(null);
+
+  useEffect(() => {
+    setCode(stubs[language]);
+  }, [language]);
+
+  const renderTimeDetails = () => {
+    if (!jobDetails) {
+      return "";
+    }
+    let result = "";
+    let { submittedAt, completedAt, startedAt } = jobDetails;
+
+    submittedAt = moment(submittedAt).toString();
+
+    result += `Submited At : ${submittedAt} `;
+    if (!completedAt || !startedAt) {
+      return result;
+    }
+
+    const startTime = moment(startedAt);
+    const endTime = moment(completedAt);
+    const executionTime = endTime.diff(startTime, "seconds", true);
+
+    result += `Execution Time : ${executionTime} s`;
+
+    return result;
+  };
 
   const handleSubmit = async () => {
     const payload = {
@@ -17,6 +47,7 @@ function CodeArea({ language }) {
       setJobId("");
       setStatus("");
       setOutput("");
+      setJobDetails(null);
       const { data } = await axios.post("http://localhost:5000/run", payload);
       console.log(output);
       setJobId(data.jobId);
@@ -34,6 +65,7 @@ function CodeArea({ language }) {
         if (success) {
           const { status: jobStatus, output: jobOutput } = job;
           setStatus(jobStatus);
+          setJobDetails(job);
           if (jobStatus === "pending") return;
           setOutput(jobOutput);
           clearInterval(intervalId);
@@ -56,26 +88,46 @@ function CodeArea({ language }) {
   };
 
   return (
-    <>
-      <div className="codeArea">
+    <div className="codeArea">
+      <div className="inputArea">
+        <div className="header-Area" id="header-Area-input">
+          <div className="inputFileName">main.{language}</div>
+          <div className="header-Area-input-buttons">
+            <button className="runButton" onClick={handleSubmit}>
+              Run
+            </button>
+          </div>
+        </div>
         <textarea
-          rows="20"
-          cols="80"
+          rows="30"
+          cols="92"
           value={code}
           onChange={(e) => {
-            setCode(e.target.value);
+            // response is not working
+            let response = window.alert(
+              "WARNING: Switching the language, will remove your code !"
+            );
+
+            if (response) {
+              setCode(e.target.value);
+            }
           }}
         ></textarea>
         <br />
-        <button onClick={handleSubmit}>Run</button>
       </div>
       <div className="outputArea">
+        <div className="header-Area" id="header-Area-output">
+          <div className="outputTitle">Output</div>
+          {/* <div className="header-Area-input-buttons">
+            
+          </div> */}
+        </div>
         <p>{status}</p>
         <p>{jobId && `JobId: ${jobId}`}</p>
-
+        <p>{renderTimeDetails()}</p>
         <p>{output}</p>
       </div>
-    </>
+    </div>
   );
 }
 
