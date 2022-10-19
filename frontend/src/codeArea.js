@@ -2,6 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import stubs from "./defaultCodes.js";
 import moment from "moment";
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-python";
+import "ace-builds/src-noconflict/mode-c_cpp";
+import "ace-builds/src-noconflict/theme-monokai";
+import SuccessStatusBtn from "./buttons/successStatusBtn.js";
+import PendingStatusBtn from "./buttons/pendingStatusBtn.js";
+import ErrorStatusBtn from "./buttons/errorStatusBtn.js";
 
 function CodeArea({ language }) {
   const [code, setCode] = useState("");
@@ -9,6 +16,11 @@ function CodeArea({ language }) {
   const [status, setStatus] = useState("");
   const [jobId, setJobId] = useState("");
   const [jobDetails, setJobDetails] = useState(null);
+  const [changeTheme, setChangeTheme] = useState(
+    localStorage.getItem("Current Theme")
+      ? localStorage.getItem("Current Theme")
+      : localStorage.setItem("Current Theme", "monokai")
+  );
 
   useEffect(() => {
     setCode(stubs[language]);
@@ -28,13 +40,21 @@ function CodeArea({ language }) {
       return result;
     }
 
+    return result;
+  };
+
+  const renderExecutionTimeDetails = () => {
+    if (!jobDetails) {
+      return "";
+    }
+    let executionTime = "";
+    let { completedAt, startedAt } = jobDetails;
+
     const startTime = moment(startedAt);
     const endTime = moment(completedAt);
-    const executionTime = endTime.diff(startTime, "seconds", true);
+    executionTime = endTime.diff(startTime, "seconds", true);
 
-    result += `Execution Time : ${executionTime} s`;
-
-    return result;
+    return executionTime;
   };
 
   const handleSubmit = async () => {
@@ -87,45 +107,66 @@ function CodeArea({ language }) {
     }
   };
 
+  const setMode = language === "py" ? "python" : "c_cpp";
+
   return (
     <div className="codeArea">
       <div className="inputArea">
         <div className="header-Area" id="header-Area-input">
           <div className="inputFileName">main.{language}</div>
           <div className="header-Area-input-buttons">
+            <select
+              placeholder="Change Theme"
+              value={changeTheme}
+              onChange={(e) => {
+                localStorage.setItem("Current Theme", e.target.value);
+                setChangeTheme(e.target.value);
+              }}
+            >
+              <option value="monokai">Monokai</option>
+              <option value="monokai-light">Monokai Light</option>
+              <option value="tomorrow_night">Tomorrow Night</option>
+              <option value="github">Github</option>
+            </select>
             <button className="runButton" onClick={handleSubmit}>
               Run
             </button>
           </div>
         </div>
-        <textarea
-          rows="30"
-          cols="92"
+        <AceEditor
+          mode={setMode}
+          theme={changeTheme}
+          className="textarea"
+          defaultValue={stubs[language]}
           value={code}
+          width="50"
+          height="570px"
+          fontSize="15px"
           onChange={(e) => {
-            // response is not working
-            let response = window.alert(
-              "WARNING: Switching the language, will remove your code !"
-            );
-
-            if (response) {
-              setCode(e.target.value);
-            }
+            setCode(e);
           }}
-        ></textarea>
+        ></AceEditor>
         <br />
       </div>
       <div className="outputArea">
         <div className="header-Area" id="header-Area-output">
-          <div className="outputTitle">Output</div>
-          {/* <div className="header-Area-input-buttons">
-            
-          </div> */}
+          <div className="outputTitle">Output </div>
+          <div className="header-Area-output-buttons">
+            {status !== "" && status === "success" && <SuccessStatusBtn />}
+            {status !== "" && status === "pending" && <PendingStatusBtn />}
+            {status !== "" && status === "error" && <ErrorStatusBtn />}
+            {jobDetails && (status === "success" || status === "error") && (
+              <p className="executionTime">
+                Execution Time : <span>{renderExecutionTimeDetails()} s</span>
+              </p>
+            )}
+          </div>
         </div>
-        <p>{status}</p>
-        <p>{jobId && `JobId: ${jobId}`}</p>
-        <p>{renderTimeDetails()}</p>
-        <p>{output}</p>
+        <div className="output-content">
+          <p className="output-jobId">{jobId && `JobId : ${jobId}`}</p>
+          <p className="output-submitedAt">{renderTimeDetails()}</p>
+          <p className="output-code">{output}</p>
+        </div>
       </div>
     </div>
   );

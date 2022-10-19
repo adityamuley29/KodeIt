@@ -47,6 +47,7 @@
   /* align-items: center; */
   justify-content: space-evenly;
   border: 2px solid #d3dce6;
+  border-radius: 2px;
   background: #f5f5f5;
   padding: 15px 15px;
   min-width: 12vw;
@@ -59,6 +60,7 @@
   width: 12vh;
   outline:none ;
   border:1px solid #d3dce6;
+  border-radius: 2px;
 }
 .codeArea{
   display: flex;
@@ -69,6 +71,8 @@
   background-color: #f5f5f5;
   border: 2px solid #d3dce6;
   font-family: "euclid_circular";
+  border-left: none;
+  /* border-bottom: none; */
   
 }
 .inputArea{
@@ -131,6 +135,7 @@ font-size: 16px;
 .header-Area-input-buttons{
   position: relative;
   padding: 12px 20px;
+  display: flex;
 }
 .header-Area-input-buttons .runButton{
   display: flex;
@@ -143,6 +148,7 @@ font-size: 16px;
   cursor: pointer;
   padding: 6px 20px;
   background: #0556f3;
+  letter-spacing: 1px;
   font-size: 14px;
   line-height: 20px;
   color: #ffffff;
@@ -156,5 +162,74 @@ font-size: 16px;
 .outputTitle{
   padding-left: 20px;
   font-size: 18px;
+
+}
+
+.header-Area-output-buttons{
+  position: relative;
+    display: flex;
+    align-items: center;
+    width: 40%;
+    justify-content: space-around;
+  
+}
+.outPutStatus{
+  position: relative;
+  font-size: 14px;
+  border-radius: 2px;
+  min-width: 90px;
+  min-height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+#success{
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+  background-color: #198754;
+}
+#pending{
+  color: black;
+  font-weight: bold;
+  letter-spacing: 1px;
+  background-color: #ffc107;
+}
+#error{
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+  background-color: #dc3545;
+}
+
+.output-content{
+  position: relative;
+  margin-left: 10px;
+}
+.output-jobId{
+  position: relative;
+  font-size: 15px;
+  color: rgba(128, 128, 128, 0.482);
+
+}
+.output-submitedAt{
+  position: relative;
+  font-size: 15px;
+  color: rgba(128, 128, 128, 0.482);
+}
+.output-code{
+  font-family: "consolas";
+  font-size: 16px;
+}
+
+.executionTime span{
+  color: black;
+  font-size: 15px;
+  padding: 4px;
+  border-radius: 2px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 2px solid #d3dce6;
 
 }
