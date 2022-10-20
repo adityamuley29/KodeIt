@@ -1,4 +1,8 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Silkscreen&display=swap');
+
+
 
 .App-logo {
   height: 40vmin;
@@ -35,12 +39,29 @@
   }
 }
 
+
 .appHeader{
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 40px;
+}
+
+.projectTitle{
+  position: relative;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+
+}
+#brandName{
+  font-family: 'Silkscreen', cursive;
+}
+#brandSubName{
+  font-size: 30px;
+  font-weight: 500;
+  font-family: 'Caveat', cursive;
 }
 .selectLanguage{
   display: flex;
@@ -49,7 +70,7 @@
   border: 2px solid #d3dce6;
   border-radius: 2px;
   background: #f5f5f5;
-  padding: 15px 15px;
+  padding: 12px 10px;
   min-width: 12vw;
 }
 .selectLanguage label{
@@ -64,20 +85,24 @@
 }
 .codeArea{
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: flex-start;
   /* flex-direction: column; */
-  height: 83vh;
+  max-height: 84vh;
   background-color: #f5f5f5;
   border: 2px solid #d3dce6;
   font-family: "euclid_circular";
   border-left: none;
   /* border-bottom: none; */
+  /* flex-wrap: wrap; */
   
 }
 .inputArea{
   position: relative;
   width: 50%;
+  /* border-bottom: 2px solid #d3dce6; */
+  height: 100%;
+
 
 
 }
@@ -105,6 +130,7 @@ font-size: 16px;
   width: 50%;
   height: 100%;
   border-left: 2px solid #d3dce6;
+  overflow-y: scroll;
 
 }
 

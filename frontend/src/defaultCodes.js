@@ -20,4 +20,13 @@ stubs.py = `# Online Python compiler (interpreter) to run Python online.
 print("Hello world")
 `;
 
+stubs.java = `// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}`;
+
 export default stubs;

@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <div className="appHeader">
-        <h1 className="projectTitle">KodeIt - Online Compiler</h1>
+        <h1 className="projectTitle"><span id="brandName">KodeIt</span><span id="brandSubName">Online Code Compiler</span></h1>
 
         <div className="selectLanguage">
           <label>Language :</label>

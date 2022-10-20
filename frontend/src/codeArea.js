@@ -140,7 +140,7 @@ function CodeArea({ language }) {
           defaultValue={stubs[language]}
           value={code}
           width="50"
-          height="570px"
+          height="576px"
           fontSize="15px"
           onChange={(e) => {
             setCode(e);
