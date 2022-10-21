@@ -8,7 +8,10 @@ function App() {
   return (
     <div className="App">
       <div className="appHeader">
-        <h1 className="projectTitle"><span id="brandName">KodeIt</span><span id="brandSubName">Online Code Compiler</span></h1>
+        <h1 className="projectTitle">
+          <span id="brandName">KodeIt</span>
+          <span id="brandSubName">Online Code Compiler</span>
+        </h1>
 
         <div className="selectLanguage">
           <label>Language :</label>
@@ -18,12 +21,12 @@ function App() {
               setLanguage(e.target.value);
             }}
           >
+            <option value="c">C</option>
             <option value="cpp">C++</option>
             <option value="py">Python</option>
           </select>
         </div>
       </div>
-
 
       <CodeArea language={language} />
     </div>

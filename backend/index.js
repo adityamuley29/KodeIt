@@ -18,6 +18,7 @@ connectDB();
 
 // ALL app routes
 
+// below route is for getting the status of job
 app.get("/status", async (req, res) => {
   const jobId = req.query.id;
 
@@ -33,7 +34,7 @@ app.get("/status", async (req, res) => {
       return res.status(404).json({ success: false, error: "invalid job id" });
     }
 
-    return res.status(200).json({success:true,job});
+    return res.status(200).json({ success: true, job });
   } catch (error) {
     return res
       .status(400)
@@ -41,6 +42,7 @@ app.get("/status", async (req, res) => {
   }
 });
 
+// below route is for compile & run the code
 app.post("/run", async (req, res) => {
   const { language = "cpp", code } = req.body;
 
@@ -89,6 +91,7 @@ app.post("/run", async (req, res) => {
     // res.status(500).json({ error });
   }
 });
+
 
 app.listen(5000, () => {
   console.log("Server runnning on PORT 5000...");

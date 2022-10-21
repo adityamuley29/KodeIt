@@ -1,5 +1,17 @@
 const stubs = {};
 
+stubs.c = `// Online C compiler to run C program online
+
+#include <stdio.h>
+
+int main() {
+    // Write C code here
+    printf("Hello world!");
+
+    return 0;
+}
+`;
+
 stubs.cpp = `// Online C++ compiler to run C++ program online
 
 #include <bits/stdc++.h>

@@ -6,9 +6,10 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/theme-monokai";
-import SuccessStatusBtn from "./buttons/successStatusBtn.js";
-import PendingStatusBtn from "./buttons/pendingStatusBtn.js";
-import ErrorStatusBtn from "./buttons/errorStatusBtn.js";
+import SuccessStatusBtn from "./assets/buttons/successStatusBtn.js";
+import PendingStatusBtn from "./assets/buttons/pendingStatusBtn.js";
+import ErrorStatusBtn from "./assets/buttons/errorStatusBtn.js";
+import DownloadFile from "./components/DownloadFile.js";
 
 function CodeArea({ language }) {
   const [code, setCode] = useState("");
@@ -69,7 +70,6 @@ function CodeArea({ language }) {
       setOutput("");
       setJobDetails(null);
       const { data } = await axios.post("http://localhost:5000/run", payload);
-      console.log(output);
       setJobId(data.jobId);
 
       let intervalId;
@@ -80,7 +80,7 @@ function CodeArea({ language }) {
         );
 
         const { success, job, error } = dataRes;
-        console.log(dataRes);
+        // console.log(dataRes);
 
         if (success) {
           const { status: jobStatus, output: jobOutput } = job;
@@ -96,7 +96,7 @@ function CodeArea({ language }) {
           clearInterval(intervalId);
         }
 
-        console.log(dataRes);
+        // console.log(dataRes);
       }, 1000);
     } catch ({ response }) {
       if (response) {
@@ -115,6 +115,8 @@ function CodeArea({ language }) {
         <div className="header-Area" id="header-Area-input">
           <div className="inputFileName">main.{language}</div>
           <div className="header-Area-input-buttons">
+            <DownloadFile language={language} code={code} jobId={jobId} />
+
             <select
               placeholder="Change Theme"
               value={changeTheme}
@@ -129,7 +131,7 @@ function CodeArea({ language }) {
               <option value="github">Github</option>
             </select>
             <button className="runButton" onClick={handleSubmit}>
-              Run
+              Compile & Run
             </button>
           </div>
         </div>

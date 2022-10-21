@@ -163,16 +163,19 @@ font-size: 16px;
   padding: 12px 20px;
   display: flex;
 }
+.header-Area-input-buttons select{
+  margin: 0px 4px;
+}
 .header-Area-input-buttons .runButton{
   display: flex;
-  min-width: 67px;
-  min-height: 32px;
-  margin: 0 20px 0 16px;
+  min-width: 47px;
+  min-height: 12px;
+  margin: 0px 4px;
   justify-content: center;
   font-family: "euclid_circular";
-  text-align: center;
+  justify-content: center;
   cursor: pointer;
-  padding: 6px 20px;
+  padding: 3px 10px;
   background: #0556f3;
   letter-spacing: 1px;
   font-size: 14px;
@@ -183,6 +186,7 @@ font-size: 16px;
   border-radius: 2px;
   z-index: 109;
   font-weight: bold;
+  align-items: center;
 }
 
 .outputTitle{
@@ -199,6 +203,16 @@ font-size: 16px;
     justify-content: space-around;
   
 }
+.codeDownloadImage{
+  width: 35px;
+  margin: 0px 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  
+}
+
 .outPutStatus{
   position: relative;
   font-size: 14px;
