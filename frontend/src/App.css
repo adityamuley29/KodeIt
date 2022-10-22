@@ -2,7 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caveat&family=Silkscreen&display=swap');
 
-
+/* *{
+  padding: 0;
+  margin: 0;
+} */
 
 .App-logo {
   height: 40vmin;
@@ -39,6 +42,43 @@
   }
 }
 
+.topNavbar{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 25px;
+  /* margin-bottom: 10px; */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  
+
+}
+.topNavbar-links{
+  width: max-content;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0px 40px;
+  
+  
+}
+.topNavbar-links span{
+  position: relative;
+  margin-left: 30px;
+  text-decoration: none;
+  color: #58585B;
+  font-size: 0.85em;
+  cursor: pointer;
+  font-weight: 400;
+}
+#signoutBtn{
+  color:black;
+  font-weight: 500;
+}
+
 
 .appHeader{
   position: relative;
@@ -46,6 +86,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 40px;
+  
+  
 }
 
 .projectTitle{
@@ -204,13 +246,60 @@ font-size: 16px;
   
 }
 .codeDownloadImage{
-  width: 35px;
+  width: 25px;
   margin: 0px 4px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   
+}
+
+.saveCodeImage{
+  width: 20px;
+  margin: 0px 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.saveCodeImage img{
+  width: 20px;
+  cursor: pointer;
+}
+.Tooltip{
+  background-color: #f5f5f5;
+  /* border: 2px solid #d3dce6; */
+    position: absolute;
+    border-radius: 5px;
+    /* bottom: 130%; */
+    padding: 5px 7px;
+    font-size: 14px;
+    visibility: hidden;
+    /* transition: all .5s; */
+    width: max-content;
+}
+.Tooltip::after {
+  content: '';
+  border-width: 5px;
+  border-style: solid;
+  border-color: #f3f3f3 transparent transparent transparent;
+  position: absolute;
+  top: 100%;
+  left: 40%;
+  margin-left: 5%;
+}
+.saveCodeImage:hover .Tooltip{
+  position: absolute;
+  z-index: 1;
+  visibility: visible;
+  transform: translatey(-30px);
+  /* width: max-content; */
+}
+.codeDownloadImage:hover .Tooltip{
+  visibility: visible;
+  transform: translateY(-30px);
+  width: max-content;
 }
 
 .outPutStatus{
@@ -272,4 +361,91 @@ font-size: 16px;
   background-color: #f5f5f5;
   border: 2px solid #d3dce6;
 
+}
+
+
+.registeUserContainer{
+  position: absolute;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+}
+.registeUserForm{
+  position: relative;
+  width: 20%;
+  height: auto;
+  padding: 40px 70px;
+  background-color: white;
+  border:2px solid #d3dce6 ;
+
+  border-radius: 4px;
+  flex-direction: column;
+
+}
+.registeUserForm form{
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-direction: column;
+  padding: 10px 0px;
+  justify-content: center;
+  align-items: flex-start;
+ 
+
+}
+.registeUserForm h3{
+  font-size: 1.5em;
+  margin: 10px 0px;
+  font-family: 'Silkscreen', cursive;
+}
+
+.registeUserForm form input{
+  width: 100%;
+  margin: 10px 0px;
+  height: 5vh;
+  padding: 0px 5px;
+  background-color: white;
+  border:2px solid #d3dce6 ;
+  border-radius: 4px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.registeUserForm form input:focus{
+  background-color: #e8ebef3a;
+  border:2px solid #d3dce6 ;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  outline: none;
+}
+.registeUserForm form #registerSubmit{
+  margin: 5px 0px;
+  /* height: 50px; */
+  width: 30%;
+  padding: 10px 0px ;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: white;
+  border: none;
+  background: #0556f3;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+#closeRegister{
+  position: absolute;
+  z-index: 10000;
+  top: 5%;
+  right: 5%;
+  width: 30px;
+  cursor: pointer;
+  
+  margin: 10px;
 }

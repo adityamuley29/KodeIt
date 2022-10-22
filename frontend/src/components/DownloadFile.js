@@ -24,6 +24,7 @@ function DownloadFile({ language, code, jobId }) {
     
     <a onClick={handleDownloadFile} className="codeDownloadImage">
       <img src={codeDownloadImage} alt="download button" />
+      <span className="Tooltip">Download Code</span>
     </a>
   );
 }

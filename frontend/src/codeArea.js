@@ -10,6 +10,7 @@ import SuccessStatusBtn from "./assets/buttons/successStatusBtn.js";
 import PendingStatusBtn from "./assets/buttons/pendingStatusBtn.js";
 import ErrorStatusBtn from "./assets/buttons/errorStatusBtn.js";
 import DownloadFile from "./components/DownloadFile.js";
+import SaveCode from "./components/SaveCode.js";
 
 function CodeArea({ language }) {
   const [code, setCode] = useState("");
@@ -69,13 +70,16 @@ function CodeArea({ language }) {
       setStatus("");
       setOutput("");
       setJobDetails(null);
-      const { data } = await axios.post("http://localhost:5000/run", payload);
+      const { data } = await axios.post(
+        "http://localhost:5000/api/run",
+        payload
+      );
       setJobId(data.jobId);
 
       let intervalId;
       intervalId = setInterval(async () => {
         const { data: dataRes } = await axios.get(
-          "http://localhost:5000/status",
+          "http://localhost:5000/api/status",
           { params: { id: data.jobId } }
         );
 
@@ -100,7 +104,7 @@ function CodeArea({ language }) {
       }, 1000);
     } catch ({ response }) {
       if (response) {
-        setOutput(response.data.error.stderr);
+        setOutput(response.data.error);
       } else {
         setOutput("Error Connecting to server!!!");
       }
@@ -115,6 +119,7 @@ function CodeArea({ language }) {
         <div className="header-Area" id="header-Area-input">
           <div className="inputFileName">main.{language}</div>
           <div className="header-Area-input-buttons">
+            <SaveCode />
             <DownloadFile language={language} code={code} jobId={jobId} />
 
             <select

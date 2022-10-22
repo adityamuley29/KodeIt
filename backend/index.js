@@ -1,12 +1,9 @@
 const express = require("express");
-const { generateFile } = require("./generateFile");
-const { executeCpp } = require("./executeCPP");
-const { executePython } = require("./executePython");
 const cors = require("cors");
 const connectDB = require("./db/db");
-const Job = require("./models/Job");
-
 const app = express();
+require("dotenv").config();
+const protect = require("./middleware/authMiddleware");
 
 // Middleware
 app.use(cors());
@@ -16,83 +13,22 @@ app.use(express.json());
 // database
 connectDB();
 
-// ALL app routes
+// ---------ALL app routes-----------------
 
 // below route is for getting the status of job
-app.get("/status", async (req, res) => {
-  const jobId = req.query.id;
-
-  console.log("Status requested :", jobId);
-  if (jobId === undefined) {
-    return res.status(400).json({ success: false, error: "Missing id params" });
-  }
-
-  try {
-    const job = await Job.findById(jobId);
-
-    if (job === undefined) {
-      return res.status(404).json({ success: false, error: "invalid job id" });
-    }
-
-    return res.status(200).json({ success: true, job });
-  } catch (error) {
-    return res
-      .status(400)
-      .json({ success: false, error: JSON.stringify(error) });
-  }
-});
+app.use("/api/status", require("./routes/statusRoute"));
 
 // below route is for compile & run the code
-app.post("/run", async (req, res) => {
-  const { language = "cpp", code } = req.body;
+app.use("/api/run", require("./routes/runRoute"));
 
-  if (code === undefined) {
-    return res
-      .status(400)
-      .json({ success: "false", error: "Body of code should not be empty!!" });
-  }
-  let job;
+// below route is for user auth
+app.use("/api/users", require("./routes/userRoutes"));
 
-  try {
-    // we need to generate cpp file with content from the file
-    const filePath = await generateFile(language, code);
+// below route is for save code in database
 
-    job = await new Job({ language, filePath }).save();
-    const jobId = job["_id"];
-    res.status(201).json({ success: true, jobId });
+app.use("/api/save-code", protect, require("./routes/saveCodeRoute"));
 
-    console.log(job);
-
-    // we need to run the file and send the response
-
-    let output;
-    job["startedAt"] = new Date();
-    if (language === "cpp") {
-      output = await executeCpp(filePath);
-    } else {
-      output = await executePython(filePath);
-    }
-
-    job["completedAt"] = new Date();
-    job["status"] = "success";
-    job["output"] = output;
-
-    await job.save();
-
-    console.log(job);
-    // return res.json({ filePath, output });
-  } catch (error) {
-    job["completedAt"] = new Date();
-    job["status"] = "error";
-    job["output"] = JSON.stringify(error);
-    await job.save();
-
-    console.log(job);
-    // res.status(500).json({ error });
-  }
-});
-
-
-app.listen(5000, () => {
+// app listening on port 5000
+app.listen(process.env.PORT, () => {
   console.log("Server runnning on PORT 5000...");
 });
