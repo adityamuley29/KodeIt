@@ -28,6 +28,10 @@ function CodeArea({ language }) {
     setCode(stubs[language]);
   }, [language]);
 
+  useEffect(() => {
+    localStorage.setItem("code", JSON.stringify(code));
+  }, [code]);
+
   const renderTimeDetails = () => {
     if (!jobDetails) {
       return "";
@@ -119,10 +123,11 @@ function CodeArea({ language }) {
         <div className="header-Area" id="header-Area-input">
           <div className="inputFileName">main.{language}</div>
           <div className="header-Area-input-buttons">
-            <SaveCode />
+            <SaveCode language={language} code={code} />
             <DownloadFile language={language} code={code} jobId={jobId} />
 
             <select
+              className="changeTheme"
               placeholder="Change Theme"
               value={changeTheme}
               onChange={(e) => {

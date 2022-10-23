@@ -1,10 +1,10 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const JobSchema = mongoose.Schema({
   language: {
     type: String,
     require: true,
-    enum: ["cpp", "py"],
+    enum: ["c", "cpp", "py"],
   },
   filePath: {
     type: String,
@@ -14,11 +14,11 @@ const JobSchema = mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-  startedAt:{
-    type:Date
+  startedAt: {
+    type: Date,
   },
-  completedAt:{
-    type:Date
+  completedAt: {
+    type: Date,
   },
   status: {
     type: String,

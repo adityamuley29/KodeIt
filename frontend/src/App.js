@@ -5,6 +5,7 @@ import TopNavbar from "./components/TopNavbar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import RegisterUser from "./components/registerUser";
 import SigninUser from "./components/signinUser";
+import SaveCodeDialogue from "./components/saveCodedialogue";
 
 function App() {
   const [language, setLanguage] = useState("py");
@@ -38,6 +39,10 @@ function App() {
         <Routes>
           <Route path="/user/register" element={<RegisterUser />} />
           <Route path="/user/signin" element={<SigninUser />} />
+          <Route
+            path="/save-code"
+            element={<SaveCodeDialogue language={language} />}
+          />
         </Routes>
       </div>
     </Router>
