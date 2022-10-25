@@ -41,4 +41,8 @@ class HelloWorld {
     }
 }`;
 
+stubs.js = `// Online Javascript compiler to run Js program online
+console.log("Hello World");
+`
+
 export default stubs;

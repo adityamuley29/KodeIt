@@ -3,6 +3,7 @@ const { executeCpp } = require("../executeCPP");
 const { executePython } = require("../executePython");
 const { executeC } = require("../executeC");
 const Job = require("../models/Job");
+const { executeJavascript } = require("../executeJavascript");
 
 const runController = async (req, res) => {
   const { language = "cpp", code } = req.body;
@@ -32,8 +33,10 @@ const runController = async (req, res) => {
       output = await executeCpp(filePath);
     } else if (language === "c") {
       output = await executeC(filePath);
-    } else {
+    } else if (language === "py") {
       output = await executePython(filePath);
+    } else {
+      output = await executeJavascript(filePath);
     }
 
     job["completedAt"] = new Date();

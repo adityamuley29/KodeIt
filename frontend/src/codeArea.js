@@ -96,7 +96,7 @@ function CodeArea({ language }) {
           setStatus(jobStatus);
           setJobDetails(job);
           if (jobStatus === "pending") return;
-          setOutput(JSON.parse(jobOutput));
+          setOutput(jobOutput);
           clearInterval(intervalId);
         } else {
           setStatus("Error: Please retry!");

@@ -216,7 +216,8 @@ font-size: 16px;
   text-align: center;
   /* height: 5vh; */
   padding: 20px 24px;
-  font-weight: 500;
+  font-weight: bold;
+  letter-spacing: 1px;
   font-size: 18px;
   border-right: 2px solid #d3dce6;
   
@@ -386,7 +387,7 @@ backdrop-filter: blur(4.3px);
 
 .registeUserContainer{
   position: absolute;
-  background-color: #f5f5f5;
+  background-color:#f3f3f3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -396,18 +397,19 @@ backdrop-filter: blur(4.3px);
   left: 0;
   z-index: 10000;
   background-image: linear-gradient( 68.4deg,  rgba(248,182,204,1) 0.5%, rgba(192,198,230,1) 49%, rgba(225,246,240,1) 99.8% );
+
 }
 .registeUserForm{
   position: relative;
   width: 20%;
   height: auto;
   padding: 40px 70px;
-  background-color: white;
+  background-color: #d3dce6;
   border:2px solid #d3dce6 ;
 
   border-radius: 4px;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0);
 border-radius: 16px;
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 backdrop-filter: blur(4.3px);
@@ -445,7 +447,7 @@ border: 1px solid rgba(255, 255, 255, 0.6);
   background-color: #e8ebef3a;
 }
 .registeUserForm form input:focus{
-  background-color: #e8ebef3a;
+  background-color: #e8ebefa5;
   border:1px solid #d3dce6 ;
   border-radius: 4px;
   letter-spacing: 1px;
@@ -491,6 +493,7 @@ backdrop-filter: blur(4.3px);
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: linear-gradient( 68.4deg,  rgba(248,182,204,1) 0.5%, rgba(192,198,230,1) 49%, rgba(225,246,240,1) 99.8% );
 
 }
 .saveCodeMain{
@@ -504,6 +507,13 @@ backdrop-filter: blur(4.3px);
   justify-content: flex-start;
   border-radius: 4px;
   flex-direction: column;
+  background: rgba(255, 255, 255, 0);
+  border-radius: 6px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.3px);
+  -webkit-backdrop-filter: blur(4.3px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  
 }
 
 .saveCodeTitle{
@@ -527,7 +537,7 @@ backdrop-filter: blur(4.3px);
   width: 100%;
   height: 4vh;
   padding: 0px 5px;
-  background-color: white;
+  background-color: #e8ebef3a;
   border:2px solid #d3dce6 ;
   border-radius: 4px;
   font-weight: 600;
@@ -535,7 +545,7 @@ backdrop-filter: blur(4.3px);
   
 }
 .saveCodeMain form input:focus{
-  background-color: #e8ebef3a;
+  background-color: #e8ebefa5;
   border:2px solid #d3dce6 ;
   border-radius: 4px;
   letter-spacing: 1px;
