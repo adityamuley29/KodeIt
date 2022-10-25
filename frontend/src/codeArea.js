@@ -11,6 +11,7 @@ import PendingStatusBtn from "./assets/buttons/pendingStatusBtn.js";
 import ErrorStatusBtn from "./assets/buttons/errorStatusBtn.js";
 import DownloadFile from "./components/DownloadFile.js";
 import SaveCode from "./components/SaveCode.js";
+import CopyCodeToClipBoard from "./components/CopyCodeToClipBoard.js";
 
 function CodeArea({ language }) {
   const [code, setCode] = useState("");
@@ -95,7 +96,7 @@ function CodeArea({ language }) {
           setStatus(jobStatus);
           setJobDetails(job);
           if (jobStatus === "pending") return;
-          setOutput(jobOutput);
+          setOutput(JSON.parse(jobOutput));
           clearInterval(intervalId);
         } else {
           setStatus("Error: Please retry!");
@@ -123,6 +124,7 @@ function CodeArea({ language }) {
         <div className="header-Area" id="header-Area-input">
           <div className="inputFileName">main.{language}</div>
           <div className="header-Area-input-buttons">
+            <CopyCodeToClipBoard code={code} />
             <SaveCode language={language} code={code} />
             <DownloadFile language={language} code={code} jobId={jobId} />
 

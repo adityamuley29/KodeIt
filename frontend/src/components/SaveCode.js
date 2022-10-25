@@ -4,11 +4,14 @@ import saveCodeImage from "../assets/icons/save-outline.svg";
 
 function SaveCode({ language, code }) {
   const history = useNavigate();
+  const user = localStorage.getItem("user");
 
   return (
     <a
       onClick={() => {
-        history("/save-code");
+        user
+          ? history("/save-code")
+          : window.alert("Please Sign In to Save Code !");
       }}
       className="saveCodeImage"
     >

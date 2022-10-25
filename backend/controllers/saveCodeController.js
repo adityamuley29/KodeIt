@@ -41,7 +41,7 @@ const findSaveCodeAll = async (req, res) => {
   try {
     const getAllSaveCodes = await SaveCodeModel.find({ userId: userId });
     if (getAllSaveCodes) {
-      return res.status(200).json({ getAllSaveCodes });
+      return res.status(200).json(getAllSaveCodes);
     } else {
       return res.status(400).json({
         message: "Error Finding saving code. Please try again later !",
@@ -106,13 +106,32 @@ const deleteSaveCodeAll = async (req, res) => {
     const deleteSaveCode = await SaveCodeModel.deleteMany({ userId: userId });
 
     if (deleteSaveCode) {
-      return res.status(200).json({ message: "Successfully Deleted all codes" });
+      return res
+        .status(200)
+        .json({ message: "Successfully Deleted all codes" });
     } else {
       return res.status(400).json({
         message: "Error Finding saving code. Please check code user id !",
       });
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+const editSaveCodeFileName = async (req, res) => {
+  const { id } = req.query;
+  const { newFileName } = req.body;
+
+  try {
+    const file = await SaveCodeModel.findById(id);
+
+    if (file) {
+      file["name"] = newFileName;
+
+      file.save();
+      res.status(200).json({ message: "File name updated !" });
+    }
   } catch (error) {
     console.log(error);
   }
@@ -123,5 +142,6 @@ module.exports = {
   findSaveCodeAll,
   findSaveCodeById,
   deleteSaveCodeById,
-  deleteSaveCodeAll
+  deleteSaveCodeAll,
+  editSaveCodeFileName,
 };

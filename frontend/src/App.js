@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import RegisterUser from "./components/registerUser";
 import SigninUser from "./components/signinUser";
 import SaveCodeDialogue from "./components/saveCodedialogue";
+import UserMyFiles from "./components/UserMyFiles";
 
 function App() {
   const [language, setLanguage] = useState("py");
@@ -39,6 +40,7 @@ function App() {
         <Routes>
           <Route path="/user/register" element={<RegisterUser />} />
           <Route path="/user/signin" element={<SigninUser />} />
+          <Route path="/user/my-files" element={<UserMyFiles />} />
           <Route
             path="/save-code"
             element={<SaveCodeDialogue language={language} />}

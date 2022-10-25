@@ -1,11 +1,11 @@
-import React from "react";
-import { json, useNavigate } from "react-router-dom";
-import { decodeToken } from "react-jwt";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function TopNavbar() {
   const history = useNavigate();
   const isUserSignin = localStorage.getItem("user");
   const user = JSON.parse(localStorage.getItem("user"));
+  const [userLinks, setUserLinks] = useState(false);
 
   const handleSignout = () => {
     localStorage.removeItem("user");
@@ -16,7 +16,24 @@ function TopNavbar() {
     <div className="topNavbar">
       {isUserSignin ? (
         <div className="topNavbar-links">
-          <span>{user.email}</span>
+          <div>
+            <span
+              onClick={() => {
+                setUserLinks(false);
+                history("/user/my-files");
+              }}
+            >
+              My Files
+            </span>
+          </div>
+          <span
+            onClick={() => {
+              setUserLinks(true);
+            }}
+          >
+            {user.email} <span>|</span>
+          </span>
+
           <span className="signout" id="signoutBtn" onClick={handleSignout}>
             Sign out
           </span>
@@ -29,7 +46,7 @@ function TopNavbar() {
             }}
             className="register"
           >
-            Register
+            Register <span>|</span>
           </span>
           <span
             onClick={() => {

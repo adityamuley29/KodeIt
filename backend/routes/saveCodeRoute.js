@@ -6,12 +6,14 @@ const {
   findSaveCodeById,
   deleteSaveCodeById,
   deleteSaveCodeAll,
+  editSaveCodeFileName,
 } = require("../controllers/saveCodeController");
 
 router.post("/", saveCodeController);
-router.get("/find/all", findSaveCodeAll);
+router.post("/find/all", findSaveCodeAll);
 router.get("/find/", findSaveCodeById);
 router.delete("/delete/", deleteSaveCodeById);
 router.delete("/delete/all", deleteSaveCodeAll);
+router.put("/edit-file-name/", editSaveCodeFileName);
 
 module.exports = router;
