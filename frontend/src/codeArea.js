@@ -5,6 +5,7 @@ import moment from "moment";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/mode-c_cpp";
+import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-monokai";
 import SuccessStatusBtn from "./assets/buttons/successStatusBtn.js";
 import PendingStatusBtn from "./assets/buttons/pendingStatusBtn.js";
@@ -12,6 +13,8 @@ import ErrorStatusBtn from "./assets/buttons/errorStatusBtn.js";
 import DownloadFile from "./components/DownloadFile.js";
 import SaveCode from "./components/SaveCode.js";
 import CopyCodeToClipBoard from "./components/CopyCodeToClipBoard.js";
+import ShareCode from "./components/ShareCode.js";
+import { useParams } from "react-router-dom";
 
 function CodeArea({ language }) {
   const [code, setCode] = useState("");
@@ -23,6 +26,12 @@ function CodeArea({ language }) {
     localStorage.getItem("Current Theme")
       ? localStorage.getItem("Current Theme")
       : localStorage.setItem("Current Theme", "monokai")
+  );
+  const { slug } = useParams();
+  const [slugLang, setSlugLang] = useState(
+    localStorage.getItem("slug-language")
+      ? localStorage.getItem("slug-language")
+      : null
   );
 
   useEffect(() => {
@@ -64,6 +73,7 @@ function CodeArea({ language }) {
     return executionTime;
   };
 
+  console.log(slugLang);
   const handleSubmit = async () => {
     const payload = {
       language: language,
@@ -116,7 +126,37 @@ function CodeArea({ language }) {
     }
   };
 
-  const setMode = language === "py" ? "python" : "c_cpp";
+  useEffect(() => {
+    const fetchSlugDetails = async () => {
+      console.log(slug);
+      try {
+        const data = await axios.get(
+          "http://localhost:5000/api/share-code/slug-find",
+          { params: { slug: slug } }
+        );
+        console.log(data);
+        if (data.status === 200) {
+          localStorage.setItem("slug-language", data.data.language);
+          setCode(JSON.parse(data.data.code));
+          // localStorage.removeItem()
+        } else {
+        }
+      } catch (error) {
+        // window.alert("Invalid Link");
+        console.log(error);
+      }
+    };
+    fetchSlugDetails();
+  }, []);
+
+  let setMode;
+  if (language === "py") {
+    setMode = "python";
+  } else if (language === "js") {
+    setMode = "javascript";
+  } else {
+    setMode = "c_cpp";
+  }
 
   return (
     <div className="codeArea">
@@ -124,6 +164,7 @@ function CodeArea({ language }) {
         <div className="header-Area" id="header-Area-input">
           <div className="inputFileName">main.{language}</div>
           <div className="header-Area-input-buttons">
+            <ShareCode code={code} language={language} />
             <CopyCodeToClipBoard code={code} />
             <SaveCode language={language} code={code} />
             <DownloadFile language={language} code={code} jobId={jobId} />

@@ -24,6 +24,8 @@ app.use("/api/run", require("./routes/runRoute"));
 // below route is for user auth
 app.use("/api/users", require("./routes/userRoutes"));
 
+app.use("/api/share-code", require("./routes/shareCodeRoute"));
+
 // below route is for save code in database
 
 app.use("/api/save-code", protect, require("./routes/saveCodeRoute"));
