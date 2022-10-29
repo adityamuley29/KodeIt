@@ -8,6 +8,7 @@ import SigninUser from "./components/signinUser";
 import SaveCodeDialogue from "./components/saveCodedialogue";
 import UserMyFiles from "./components/UserMyFiles";
 import ShareCodeDialogue from "./components/ShareCodeDialogue";
+import ShareCodeCodeArea from "./components/ShareCodeCodeArea";
 
 function App() {
   const [language, setLanguage] = useState(
@@ -59,7 +60,7 @@ function App() {
             element={<ShareCodeDialogue language={language} />}
           />
           {/* this route is for share code */}
-          <Route path="/:slug" element={<CodeArea />} />
+          <Route path="/:slug" element={<ShareCodeCodeArea />} />
         </Routes>
       </div>
     </Router>

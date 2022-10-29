@@ -757,3 +757,10 @@ backdrop-filter: blur(2.3px);
   font-weight: 600;
   outline: none;
 }
+.generateLinkExpiresContainer{
+  position: relative;
+  margin-top: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: grey;
+}

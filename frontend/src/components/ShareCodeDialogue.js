@@ -68,6 +68,9 @@ const ShareCodeDialogue = () => {
             <span className="Tooltip">Copy link</span>
           </a>
         </div>
+        <span className="generateLinkExpiresContainer">
+          * Link expires in 7 days
+        </span>
       </div>
     </div>
   );

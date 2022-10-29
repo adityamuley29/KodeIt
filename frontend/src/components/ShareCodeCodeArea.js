@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import stubs from "./defaultCodes.js";
+import stubs from "../defaultCodes.js";
 import moment from "moment";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-monokai";
-import SuccessStatusBtn from "./assets/buttons/successStatusBtn.js";
-import PendingStatusBtn from "./assets/buttons/pendingStatusBtn.js";
-import ErrorStatusBtn from "./assets/buttons/errorStatusBtn.js";
-import DownloadFile from "./components/DownloadFile.js";
-import SaveCode from "./components/SaveCode.js";
-import CopyCodeToClipBoard from "./components/CopyCodeToClipBoard.js";
-import ShareCode from "./components/ShareCode.js";
+import SuccessStatusBtn from "../assets/buttons/successStatusBtn";
+import PendingStatusBtn from "../assets/buttons/pendingStatusBtn.js";
+import ErrorStatusBtn from "../assets/buttons/errorStatusBtn.js";
+import DownloadFile from "./DownloadFile.js";
+import SaveCode from "./SaveCode.js";
+import CopyCodeToClipBoard from "./CopyCodeToClipBoard.js";
+import ShareCode from "./ShareCode.js";
+import { useParams } from "react-router-dom";
 
-
-function CodeArea({ language }) {
+function ShareCodeCodeArea() {
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [status, setStatus] = useState("");
@@ -27,7 +27,17 @@ function CodeArea({ language }) {
       ? localStorage.getItem("Current Theme")
       : localStorage.setItem("Current Theme", "monokai")
   );
-
+  const { slug } = useParams();
+  const [slugLang, setSlugLang] = useState(
+    localStorage.getItem("slug-language")
+      ? localStorage.getItem("slug-language")
+      : null
+  );
+  const [language, setLanguage] = useState(
+    localStorage.getItem("language")
+      ? localStorage.getItem("language")
+      : localStorage.setItem("language", "cpp")
+  );
 
   useEffect(() => {
     setCode(stubs[language]);
@@ -68,7 +78,7 @@ function CodeArea({ language }) {
     return executionTime;
   };
 
-
+  console.log(slugLang);
   const handleSubmit = async () => {
     const payload = {
       language: language,
@@ -121,7 +131,30 @@ function CodeArea({ language }) {
     }
   };
 
+  useEffect(() => {
+    const fetchSlugDetails = async () => {
+      console.log(slug);
+      try {
+        const data = await axios.get(
+          "http://localhost:5000/api/share-code/slug-find",
+          { params: { slug: slug } }
+        );
+        console.log(data);
+        if (data.status === 200) {
+          setLanguage(data.data.language);
+          localStorage.setItem("language", data.data.language);
 
+          setCode(JSON.parse(data.data.code));
+          // localStorage.removeItem()
+        } else {
+        }
+      } catch (error) {
+        window.alert("Invalid Link");
+        console.log(error);
+      }
+    };
+    fetchSlugDetails();
+  }, []);
 
   let setMode;
   if (language === "py") {
@@ -138,7 +171,6 @@ function CodeArea({ language }) {
         <div className="header-Area" id="header-Area-input">
           <div className="inputFileName">main.{language}</div>
           <div className="header-Area-input-buttons">
-            <ShareCode code={code} language={language} />
             <CopyCodeToClipBoard code={code} />
             <SaveCode language={language} code={code} />
             <DownloadFile language={language} code={code} jobId={jobId} />
@@ -201,4 +233,4 @@ function CodeArea({ language }) {
   );
 }
 
-export default CodeArea;
+export default ShareCodeCodeArea;

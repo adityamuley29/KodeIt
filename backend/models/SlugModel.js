@@ -13,12 +13,9 @@ const slugShareCodeModel = mongoose.Schema({
     type: String,
     require: true,
   },
-  expireAt: {
+  createdAt: {
     type: Date,
-    default: Date.now,
-    index: {
-      expires: "6 days",
-    },
+    default: Date.now(),
   },
 });
 
