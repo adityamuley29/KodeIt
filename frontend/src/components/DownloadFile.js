@@ -1,8 +1,10 @@
 import axios from "axios";
 import React from "react";
+import { useToasts } from "react-toast-notifications";
 import codeDownloadImage from "../assets/icons/code-download-outline.svg";
 
 function DownloadFile({ language, code, jobId }) {
+  const { addToast } = useToasts();
   // below function is to download file
   const handleDownloadFile = () => {
     try {
@@ -14,7 +16,12 @@ function DownloadFile({ language, code, jobId }) {
       link.download = jobId ? `${jobId}.${language}` : `main.${language}`;
       link.href = url;
       link.click();
+      addToast("Successfully Downloaded File !", {
+        appearance: "success",
+        autoDismiss: true,
+      });
     } catch (error) {
+      addToast(error, { appearance: "error", autoDismiss: true });
       console.log(error);
     }
   };

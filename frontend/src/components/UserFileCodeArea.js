@@ -14,10 +14,11 @@ import DownloadFile from "./DownloadFile.js";
 import SaveCode from "./SaveCode.js";
 import CopyCodeToClipBoard from "./CopyCodeToClipBoard.js";
 import ShareCode from "./ShareCode.js";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 
-function ShareCodeCodeArea() {
+function UserFileCodeArea() {
+  const location = useLocation();
   const { addToast } = useToasts();
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
@@ -29,21 +30,13 @@ function ShareCodeCodeArea() {
       ? localStorage.getItem("Current Theme")
       : localStorage.setItem("Current Theme", "monokai")
   );
-  const { slug } = useParams();
-  const [slugLang, setSlugLang] = useState(
-    localStorage.getItem("slug-language")
-      ? localStorage.getItem("slug-language")
-      : null
-  );
-  const [language, setLanguage] = useState(
-    localStorage.getItem("language")
-      ? localStorage.getItem("language")
-      : localStorage.setItem("language", "cpp")
-  );
+  const [language, setLanguage] = useState(location.state.language);
+
+  //   console.log(location.state.inputCode);
 
   useEffect(() => {
-    setCode(stubs[language]);
-  }, [language]);
+    setCode(JSON.parse(location.state.inputCode));
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("code", JSON.stringify(code));
@@ -80,7 +73,6 @@ function ShareCodeCodeArea() {
     return executionTime;
   };
 
-  console.log(slugLang);
   const handleSubmit = async () => {
     const payload = {
       language: language,
@@ -137,33 +129,6 @@ function ShareCodeCodeArea() {
     }
   };
 
-  useEffect(() => {
-    const fetchSlugDetails = async () => {
-      console.log(slug);
-      try {
-        const data = await axios.get(
-          "http://localhost:5000/api/share-code/slug-find",
-          { params: { slug: slug } }
-        );
-        console.log(data);
-        if (data.status === 200) {
-          setLanguage(data.data.language);
-          localStorage.setItem("language", data.data.language);
-
-          setCode(JSON.parse(data.data.code));
-          // localStorage.removeItem()
-        }
-      } catch (error) {
-        addToast("Invalid Link !", {
-          appearance: "error",
-          autoDismiss: true,
-        });
-        // console.log(error);
-      }
-    };
-    fetchSlugDetails();
-  }, []);
-
   let setMode;
   if (language === "py") {
     setMode = "python";
@@ -177,7 +142,9 @@ function ShareCodeCodeArea() {
     <div className="codeArea">
       <div className="inputArea">
         <div className="header-Area" id="header-Area-input">
-          <div className="inputFileName">main.{language}</div>
+          <div className="inputFileName">
+            {location.state.name}.{language}
+          </div>
           <div className="header-Area-input-buttons">
             <CopyCodeToClipBoard code={code} />
             <SaveCode language={language} code={code} />
@@ -241,4 +208,4 @@ function ShareCodeCodeArea() {
   );
 }
 
-export default ShareCodeCodeArea;
+export default UserFileCodeArea;

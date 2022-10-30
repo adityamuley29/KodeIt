@@ -9,6 +9,7 @@ import SaveCodeDialogue from "./components/saveCodedialogue";
 import UserMyFiles from "./components/UserMyFiles";
 import ShareCodeDialogue from "./components/ShareCodeDialogue";
 import ShareCodeCodeArea from "./components/ShareCodeCodeArea";
+import UserFileCodeArea from "./components/UserFileCodeArea";
 
 function App() {
   const [language, setLanguage] = useState(
@@ -51,6 +52,7 @@ function App() {
           <Route path="/user/register" element={<RegisterUser />} />
           <Route path="/user/signin" element={<SigninUser />} />
           <Route path="/user/my-files" element={<UserMyFiles />} />
+          <Route path="/user/file/:id" element={<UserFileCodeArea />} />
           <Route
             path="/save-code"
             element={<SaveCodeDialogue language={language} />}

@@ -1,8 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 import saveCodeImage from "../assets/icons/save-outline.svg";
 
 function SaveCode({ language, code }) {
+  const { addToast } = useToasts();
   const history = useNavigate();
   const user = localStorage.getItem("user");
 
@@ -11,7 +13,10 @@ function SaveCode({ language, code }) {
       onClick={() => {
         user
           ? history("/save-code")
-          : window.alert("Please Sign In to Save Code !");
+          : addToast("Please Sign In to Save Code !", {
+              appearance: "warning",
+              autoDismiss: true,
+            });
       }}
       className="saveCodeImage"
     >

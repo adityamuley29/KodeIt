@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 import closeCircle from "../assets/icons/close-circle-outline.svg";
 
 function RegisterUser(props) {
+  const { addToast } = useToasts();
   const history = useNavigate();
   const [user, setUser] = useState({
     name: "",
@@ -26,12 +28,19 @@ function RegisterUser(props) {
 
       console.log(data);
       if (data.status === 201) {
-        await window.alert(data.data.message);
+        await addToast(data.data.message, {
+          appearance: "error",
+          autoDismiss: true,
+        });
+        // await window.alert(data.data.message);
         history("/user/signin");
       }
     } catch (error) {
-      console.log(error.response);
-      await window.alert(JSON.stringify(error.response.data.message));
+      // console.log(error.response);
+      addToast(JSON.stringify(error.response.data.message), {
+        appearance: "error",
+        autoDismiss: true,
+      });
     }
   };
 

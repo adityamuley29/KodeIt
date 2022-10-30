@@ -14,9 +14,10 @@ import DownloadFile from "./components/DownloadFile.js";
 import SaveCode from "./components/SaveCode.js";
 import CopyCodeToClipBoard from "./components/CopyCodeToClipBoard.js";
 import ShareCode from "./components/ShareCode.js";
-
+import { useToasts } from "react-toast-notifications";
 
 function CodeArea({ language }) {
+  const { addToast } = useToasts();
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [status, setStatus] = useState("");
@@ -27,7 +28,6 @@ function CodeArea({ language }) {
       ? localStorage.getItem("Current Theme")
       : localStorage.setItem("Current Theme", "monokai")
   );
-
 
   useEffect(() => {
     setCode(stubs[language]);
@@ -68,7 +68,6 @@ function CodeArea({ language }) {
     return executionTime;
   };
 
-
   const handleSubmit = async () => {
     const payload = {
       language: language,
@@ -105,7 +104,7 @@ function CodeArea({ language }) {
           clearInterval(intervalId);
         } else {
           setStatus("Error: Please retry!");
-          console.log(error);
+          // console.log(error);
           setOutput(error);
           clearInterval(intervalId);
         }
@@ -116,12 +115,14 @@ function CodeArea({ language }) {
       if (response) {
         setOutput(response.data.error);
       } else {
-        setOutput("Error Connecting to server!!!");
+        addToast("Error Connecting to server!!!", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+        setOutput(".");
       }
     }
   };
-
-
 
   let setMode;
   if (language === "py") {

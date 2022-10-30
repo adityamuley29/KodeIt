@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 
 function TopNavbar() {
+  const {addToast} = useToasts()
   const history = useNavigate();
   const isUserSignin = localStorage.getItem("user");
   const user = JSON.parse(localStorage.getItem("user"));
@@ -9,6 +11,10 @@ function TopNavbar() {
 
   const handleSignout = () => {
     localStorage.removeItem("user");
+    addToast("Successfully user signed out !", {
+      appearance: "info",
+      autoDismiss: true,
+    });
     history("/");
   };
 

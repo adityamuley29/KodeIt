@@ -397,6 +397,7 @@ backdrop-filter: blur(4.3px);
   left: 0;
   z-index: 10000;
   background-image: linear-gradient( 68.4deg,  rgba(248,182,204,1) 0.5%, rgba(192,198,230,1) 49%, rgba(225,246,240,1) 99.8% );
+  
 
 }
 .registeUserForm{
@@ -641,6 +642,9 @@ border: 1px solid rgba(255, 255, 255, 0.6);
   width: 100%;
 
 
+}
+.userFileNameLink{
+  cursor: pointer;
 }
 
 .userFilesMain table td, th {

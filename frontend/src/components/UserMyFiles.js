@@ -7,8 +7,10 @@ import EditIcon from "../assets/icons/pen-to-square-solid.svg";
 import CopyIcon from "../assets/icons/copy-solid.svg";
 import DeleteIcon from "../assets/icons/trash-solid.svg";
 import ShareIcon from "../assets/icons/share-nodes-solid.svg";
+import { useToasts } from "react-toast-notifications";
 
 const UserMyFiles = () => {
+  const { addToast } = useToasts();
   const history = useNavigate();
   const [fetchedUserFiles, setFetchedUserFiles] = useState([]);
   const [isEditFile, setIsEditFile] = useState(false);
@@ -42,7 +44,11 @@ const UserMyFiles = () => {
         console.log(allFiles);
       }
     } catch (error) {
-      console.log(error);
+      addToast(error, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+      // console.log(error);
     }
   };
 
@@ -57,7 +63,11 @@ const UserMyFiles = () => {
         fetchUserFiles();
       }
     } catch (error) {
-      console.log(error);
+      addToast(error, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+      // console.log(error);
     }
   };
 
@@ -82,7 +92,11 @@ const UserMyFiles = () => {
         fetchUserFiles();
       }
     } catch (error) {
-      console.log(error);
+      addToast(error, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+      // console.log(error);
     }
   };
 
@@ -90,9 +104,15 @@ const UserMyFiles = () => {
     const parsedCode = JSON.parse(code);
 
     navigator.clipboard.writeText(parsedCode);
-    window.alert("Successfully Code Copied to ClipBoard !");
+    addToast("Successfully Code Copied to ClipBoard !", {
+      appearance: "success",
+      autoDismiss: true,
+    });
   };
 
+  const handleOpenUserFile = (file) => {
+    history(`/user/file/${file._id}`, { state: file });
+  };
   return (
     <div className="userFilesContainer">
       <img
@@ -107,9 +127,6 @@ const UserMyFiles = () => {
         <h3 className="userFilesMainTitle">My Files</h3>
         <table>
           <tr id="tableHeaderRow">
-            <th>
-              <input type={"checkbox"} />
-            </th>
             <th>File Name</th>
             <th>Created On</th>
             <th>Actions</th>
@@ -119,10 +136,14 @@ const UserMyFiles = () => {
               return (
                 <tr id={file._id}>
                   <td>
-                    <input type={"checkbox"} />
-                  </td>
-                  <td>
-                    {file.name}.{file.language}
+                    <a
+                      className="userFileNameLink"
+                      onClick={() => {
+                        handleOpenUserFile(file);
+                      }}
+                    >
+                      {file.name}.{file.language}
+                    </a>
                   </td>
                   <td>
                     {moment(file.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
@@ -150,10 +171,18 @@ const UserMyFiles = () => {
                         />
                         <span className="Tooltip">Delete File</span>
                       </span>
-                      <span className="Action-item">
+                      {/* <span
+                        className="Action-item"
+                        onClick={() => {
+                          addToast("Coming soon ...", {
+                            appearance: "info",
+                            autoDismiss: true,
+                          });
+                        }}
+                      >
                         <img src={ShareIcon} alt="Btn here" />
                         <span className="Tooltip">Share File</span>
-                      </span>
+                      </span> */}
                       <span className="Action-item">
                         <img
                           src={CopyIcon}

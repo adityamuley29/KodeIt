@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import closeCircle from "../assets/icons/close-circle-outline.svg";
+import { useToasts } from "react-toast-notifications";
 
 function SaveCodedialogue({ language }) {
+  const { addToast } = useToasts();
   const history = useNavigate();
   const [fileName, setFileName] = useState("");
 
@@ -30,14 +32,21 @@ function SaveCodedialogue({ language }) {
       );
 
       if (response.status === 201) {
-        window.alert("File Saved Successfully !");
+        addToast("File Saved Successfully !", {
+          appearance: "success",
+          autoDismiss: true,
+        });
         setFileName("");
         history("/");
       }
 
-      console.log(response);
+      // console.log(response);
     } catch (error) {
-      console.log(error);
+      addToast(error, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+      // console.log(error);
     }
   };
 

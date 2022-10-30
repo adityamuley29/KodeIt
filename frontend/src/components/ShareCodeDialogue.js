@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import closeCircle from "../assets/icons/close-circle-outline.svg";
 import CopyIcon from "../assets/icons/clipboard-outline.svg";
 import axios from "axios";
+import { useToasts } from "react-toast-notifications";
 
 const ShareCodeDialogue = () => {
+  const { addToast } = useToasts();
   const history = useNavigate();
   const [generatedShareLink, setGeneratedShareLink] = useState("");
 
@@ -28,13 +30,20 @@ const ShareCodeDialogue = () => {
       setGeneratedShareLink(`http://localhost:3000/${data.link}`);
       console.log(data.link);
     } catch (error) {
-      console.log(error);
+      addToast(error, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+      // console.log(error);
     }
   };
 
   const copyCodeToClipBoard = (input) => {
     navigator.clipboard.writeText(input);
-    window.alert("Successfully Link Copied to ClipBoard !");
+    addToast("Successfully Link Copied to ClipBoard !", {
+      appearance: "success",
+      autoDismiss: true,
+    });
   };
   return (
     <div className="saveCodeContainer">
@@ -69,7 +78,7 @@ const ShareCodeDialogue = () => {
           </a>
         </div>
         <span className="generateLinkExpiresContainer">
-          * Link expires in 7 days
+          * Link expires after 7 days
         </span>
       </div>
     </div>
