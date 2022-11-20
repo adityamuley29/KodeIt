@@ -5,7 +5,7 @@ const path = require("path");
 const executeJavascript = (filepath) => {
   const jobId = path.basename(filepath).split(".")[0];
   return new Promise((resolve, reject) => {
-    exec(`node ./codes/"${jobId}" .js`, (error, stdout, stderr) => {
+    exec(`node ./codes/"${jobId}".js`, (error, stdout, stderr) => {
       error && reject(`${path.basename(stderr)}`);
       stderr && reject(stderr);
       resolve(stdout);

@@ -17,7 +17,6 @@ function App() {
       ? localStorage.getItem("language")
       : localStorage.setItem("language", "cpp")
   );
-  console.log(window.location.pathname);
 
   return (
     <Router>
@@ -41,7 +40,7 @@ function App() {
                 <option value="c">C</option>
                 <option value="cpp">C++</option>
                 <option value="py">Python</option>
-                <option value="js">Javascript</option>
+                {/* <option value="js">Javascript</option> */}
               </select>
             </div>
           )}
