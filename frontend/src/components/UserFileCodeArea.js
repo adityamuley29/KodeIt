@@ -16,6 +16,7 @@ import CopyCodeToClipBoard from "./CopyCodeToClipBoard.js";
 import ShareCode from "./ShareCode.js";
 import { useParams, useLocation } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
+const { REACT_APP_BACKEND_BASE_URL } = process.env;
 
 function UserFileCodeArea() {
   const location = useLocation();
@@ -85,7 +86,7 @@ function UserFileCodeArea() {
       setOutput("");
       setJobDetails(null);
       const { data } = await axios.post(
-        "http://localhost:5000/api/run",
+        `${REACT_APP_BACKEND_BASE_URL}/api/run`,
         payload
       );
       setJobId(data.jobId);
@@ -93,7 +94,7 @@ function UserFileCodeArea() {
       let intervalId;
       intervalId = setInterval(async () => {
         const { data: dataRes } = await axios.get(
-          "http://localhost:5000/api/status",
+          `${REACT_APP_BACKEND_BASE_URL}/api/status`,
           { params: { id: data.jobId } }
         );
 

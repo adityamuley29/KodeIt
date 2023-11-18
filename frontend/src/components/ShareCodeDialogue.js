@@ -4,6 +4,7 @@ import closeCircle from "../assets/icons/close-circle-outline.svg";
 import CopyIcon from "../assets/icons/clipboard-outline.svg";
 import axios from "axios";
 import { useToasts } from "react-toast-notifications";
+const { REACT_APP_BACKEND_BASE_URL } = process.env;
 
 const ShareCodeDialogue = () => {
   const { addToast } = useToasts();
@@ -24,10 +25,10 @@ const ShareCodeDialogue = () => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/share-code/slug-generate",
+        `${REACT_APP_BACKEND_BASE_URL}/api/share-code/slug-generate`,
         payload
       );
-      setGeneratedShareLink(`http://localhost:3000/${data.link}`);
+      setGeneratedShareLink(`${REACT_APP_BACKEND_BASE_URL}/${data.link}`);
       console.log(data.link);
     } catch (error) {
       addToast(error, {

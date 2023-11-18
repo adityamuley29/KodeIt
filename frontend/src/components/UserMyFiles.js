@@ -8,6 +8,7 @@ import CopyIcon from "../assets/icons/copy-solid.svg";
 import DeleteIcon from "../assets/icons/trash-solid.svg";
 import ShareIcon from "../assets/icons/share-nodes-solid.svg";
 import { useToasts } from "react-toast-notifications";
+const { REACT_APP_BACKEND_BASE_URL } = process.env;
 
 const UserMyFiles = () => {
   const { addToast } = useToasts();
@@ -33,7 +34,7 @@ const UserMyFiles = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/save-code/find/all",
+        `${REACT_APP_BACKEND_BASE_URL}/api/save-code/find/all`,
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -55,7 +56,7 @@ const UserMyFiles = () => {
   const deleteUserFile = async (id) => {
     try {
       const response = await axios.delete(
-        "http://localhost:5000/api/save-code/delete/",
+        `${REACT_APP_BACKEND_BASE_URL}/api/save-code/delete/`,
         { params: { id: id }, headers: { Authorization: `Bearer ${token}` } }
       );
       if (response.status === 200) {
@@ -78,7 +79,7 @@ const UserMyFiles = () => {
     };
     try {
       const response = await axios.put(
-        "http://localhost:5000/api/save-code/edit-file-name",
+        `${REACT_APP_BACKEND_BASE_URL}/api/save-code/edit-file-name`,
         payload,
         {
           params: { id: newFilenameId },

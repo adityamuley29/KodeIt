@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import closeCircle from "../assets/icons/close-circle-outline.svg";
+const { REACT_APP_BACKEND_BASE_URL } = process.env;
 
 function RegisterUser(props) {
   const { addToast } = useToasts();
@@ -22,7 +23,7 @@ function RegisterUser(props) {
 
     try {
       const data = await axios.post(
-        "http://localhost:5000/api/users/register",
+        `${REACT_APP_BACKEND_BASE_URL}/api/users/register`,
         payload
       );
 

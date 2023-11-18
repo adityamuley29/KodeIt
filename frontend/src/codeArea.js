@@ -15,6 +15,7 @@ import SaveCode from "./components/SaveCode.js";
 import CopyCodeToClipBoard from "./components/CopyCodeToClipBoard.js";
 import ShareCode from "./components/ShareCode.js";
 import { useToasts } from "react-toast-notifications";
+const { REACT_APP_BACKEND_BASE_URL } = process.env;
 
 function CodeArea({ language }) {
   const { addToast } = useToasts();
@@ -80,7 +81,7 @@ function CodeArea({ language }) {
       setOutput("");
       setJobDetails(null);
       const { data } = await axios.post(
-        "http://localhost:5000/api/run",
+        `${REACT_APP_BACKEND_BASE_URL}/api/run`,
         payload
       );
       setJobId(data.jobId);
@@ -88,7 +89,7 @@ function CodeArea({ language }) {
       let intervalId;
       intervalId = setInterval(async () => {
         const { data: dataRes } = await axios.get(
-          "http://localhost:5000/api/status",
+          `${REACT_APP_BACKEND_BASE_URL}/api/status`,
           { params: { id: data.jobId } }
         );
 

@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import closeCircle from "../assets/icons/close-circle-outline.svg";
+const { REACT_APP_BACKEND_BASE_URL } = process.env;
 
 function SigninUser() {
-  const {addToast} = useToasts();
+  const { addToast } = useToasts();
   const history = useNavigate();
   const [user, setUser] = useState({
     email: "",
@@ -21,26 +22,21 @@ function SigninUser() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/signin",
+        `${REACT_APP_BACKEND_BASE_URL}/api/users/signin`,
         payload
       );
-      
-      if(response.status === 200){
-        localStorage.setItem('user',JSON.stringify(response.data))
-        history('/')
+
+      if (response.status === 200) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+        history("/");
       }
-      
     } catch (error) {
       // console.log(error.response);
       addToast(JSON.stringify(error.response.data.message), {
         appearance: "error",
         autoDismiss: true,
       });
-      
     }
-
-    
-    
   };
 
   const onUserChange = (e) => {

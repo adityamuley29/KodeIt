@@ -16,6 +16,7 @@ import CopyCodeToClipBoard from "./CopyCodeToClipBoard.js";
 import ShareCode from "./ShareCode.js";
 import { useParams } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
+const { REACT_APP_BACKEND_BASE_URL } = process.env;
 
 function ShareCodeCodeArea() {
   const { addToast } = useToasts();
@@ -93,7 +94,7 @@ function ShareCodeCodeArea() {
       setOutput("");
       setJobDetails(null);
       const { data } = await axios.post(
-        "http://localhost:5000/api/run",
+        `${REACT_APP_BACKEND_BASE_URL}/api/run`,
         payload
       );
       setJobId(data.jobId);
@@ -101,7 +102,7 @@ function ShareCodeCodeArea() {
       let intervalId;
       intervalId = setInterval(async () => {
         const { data: dataRes } = await axios.get(
-          "http://localhost:5000/api/status",
+          `${REACT_APP_BACKEND_BASE_URL}/api/status`,
           { params: { id: data.jobId } }
         );
 
@@ -142,7 +143,7 @@ function ShareCodeCodeArea() {
       console.log(slug);
       try {
         const data = await axios.get(
-          "http://localhost:5000/api/share-code/slug-find",
+          `${REACT_APP_BACKEND_BASE_URL}api/share-code/slug-find`,
           { params: { slug: slug } }
         );
         console.log(data);

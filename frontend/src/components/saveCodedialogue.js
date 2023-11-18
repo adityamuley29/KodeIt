@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import closeCircle from "../assets/icons/close-circle-outline.svg";
 import { useToasts } from "react-toast-notifications";
+const { REACT_APP_BACKEND_BASE_URL } = process.env;
 
 function SaveCodedialogue({ language }) {
   const { addToast } = useToasts();
@@ -26,7 +27,7 @@ function SaveCodedialogue({ language }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/save-code",
+        `${REACT_APP_BACKEND_BASE_URL}/api/save-code`,
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
