@@ -15,6 +15,10 @@ connectDB();
 
 // ---------ALL app routes-----------------
 
+app.get("/", (req, res) => {
+  res.json("Hello World!");
+});
+
 // below route is for getting the status of job
 app.use("/api/status", require("./routes/statusRoute"));
 
