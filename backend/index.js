@@ -7,7 +7,7 @@ const protect = require("./middleware/authMiddleware");
 
 // Middleware
 const corsConfig = {
-  origin: "",
+  origin: "https://kodeit-backend.vercel.app",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
 };
