@@ -3,13 +3,13 @@ const fs = require("fs");
 const path = require("path");
 const fsExtra = require("fs-extra");
 
-const outputPath = path.join(__dirname, "outputs");
+const executeCpp = async (filepath) => {
+  const outputPath = await path.join(process.cwd(), "outputs");
 
-if (!fs.existsSync(outputPath)) {
-  fs.mkdirSync(outputPath, { recursive: true });
-}
+  if (!fs.existsSync(outputPath)) {
+    fs.mkdirSync(outputPath, { recursive: true });
+  }
 
-const executeCpp = (filepath) => {
   const jobId = path.basename(filepath).split(".")[0];
   const outPath = path.join(outputPath, `${jobId}.out`);
 
