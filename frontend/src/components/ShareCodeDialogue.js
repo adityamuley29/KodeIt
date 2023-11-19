@@ -28,7 +28,7 @@ const ShareCodeDialogue = () => {
         `${REACT_APP_BACKEND_BASE_URL}/api/share-code/slug-generate`,
         payload
       );
-      setGeneratedShareLink(`${REACT_APP_BACKEND_BASE_URL}/${data.link}`);
+      setGeneratedShareLink(`${window.location.origin}/${data.link}`);
       console.log(data.link);
     } catch (error) {
       addToast(error, {
