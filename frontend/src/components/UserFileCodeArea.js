@@ -85,7 +85,7 @@ function UserFileCodeArea() {
       setOutput("");
       setJobDetails(null);
       const { data } = await axios.post(
-        "http://localhost:5000/api/run",
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/run`,
         payload
       );
       setJobId(data.jobId);
@@ -93,7 +93,7 @@ function UserFileCodeArea() {
       let intervalId;
       intervalId = setInterval(async () => {
         const { data: dataRes } = await axios.get(
-          "http://localhost:5000/api/status",
+          `${process.env.REACT_APP_BACKEND_BASE_URL}/status`,
           { params: { id: data.jobId } }
         );
 

@@ -26,7 +26,7 @@ function SaveCodedialogue({ language }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/save-code",
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/save-code`,
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );

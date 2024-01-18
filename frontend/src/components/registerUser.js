@@ -22,7 +22,7 @@ function RegisterUser(props) {
 
     try {
       const data = await axios.post(
-        "http://localhost:5000/api/users/register",
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/register`,
         payload
       );
 

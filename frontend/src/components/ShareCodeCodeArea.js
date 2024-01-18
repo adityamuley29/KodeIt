@@ -93,7 +93,7 @@ function ShareCodeCodeArea() {
       setOutput("");
       setJobDetails(null);
       const { data } = await axios.post(
-        "http://localhost:5000/api/run",
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/run`,
         payload
       );
       setJobId(data.jobId);
@@ -101,7 +101,7 @@ function ShareCodeCodeArea() {
       let intervalId;
       intervalId = setInterval(async () => {
         const { data: dataRes } = await axios.get(
-          "http://localhost:5000/api/status",
+          `${process.env.REACT_APP_BACKEND_BASE_URL}/status`,
           { params: { id: data.jobId } }
         );
 
@@ -142,7 +142,7 @@ function ShareCodeCodeArea() {
       console.log(slug);
       try {
         const data = await axios.get(
-          "http://localhost:5000/api/share-code/slug-find",
+          `${process.env.REACT_APP_BACKEND_BASE_URL}/share-code/slug-find`,
           { params: { slug: slug } }
         );
         console.log(data);

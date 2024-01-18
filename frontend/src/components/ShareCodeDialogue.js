@@ -24,7 +24,7 @@ const ShareCodeDialogue = () => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/share-code/slug-generate",
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/share-code/slug-generate`,
         payload
       );
       setGeneratedShareLink(`http://localhost:3000/${data.link}`);

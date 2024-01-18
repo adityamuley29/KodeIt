@@ -33,7 +33,7 @@ const UserMyFiles = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/save-code/find/all",
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/save-code/find/all`,
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -55,7 +55,7 @@ const UserMyFiles = () => {
   const deleteUserFile = async (id) => {
     try {
       const response = await axios.delete(
-        "http://localhost:5000/api/save-code/delete/",
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/save-code/delete/`,
         { params: { id: id }, headers: { Authorization: `Bearer ${token}` } }
       );
       if (response.status === 200) {
@@ -78,7 +78,7 @@ const UserMyFiles = () => {
     };
     try {
       const response = await axios.put(
-        "http://localhost:5000/api/save-code/edit-file-name",
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/save-code/edit-file-name`,
         payload,
         {
           params: { id: newFilenameId },
