@@ -11,9 +11,9 @@ const executeJavascript = (filepath) => {
       resolve(stdout);
 
       // Below Remove() is to delete the file after successull file execution
-      fsExtra.remove(filepath, (error) => {
-        error !== null ?? console.log(`Remove File : `, error);
-      });
+      // fsExtra.remove(filepath, (error) => {
+      //   error !== null ?? console.log(`Remove File : `, error);
+      // });
     });
   });
 };

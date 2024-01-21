@@ -20,6 +20,7 @@ services:
     # the second number is the port inside the container
     ports:
       - 3000:3000
+    restart: always
     # specify the environment variables for the web service
     # these environment variables will be available inside the container
     environment:
@@ -57,11 +58,14 @@ services:
     # the second number is the port inside the container
     ports:
       - 5000:5000
+    restart: always
 
     # specify environment variables for the api service
     # for demo purposes, we're using a local mongodb instance
     environment:
-      DB_URL: mongodb://db/kodeItVolume
+      PORT: 5000
+      MONGO_URL: mongodb://kodeIt_db/kodeItDB
+      JWT_SECRET: adityaisfuturesoftwareengineer
 
     # establish docker compose watch mode for the api service
     develop:
@@ -94,6 +98,7 @@ services:
     container_name: kodeIt_db
     ports:
       - 27017:27017
+    restart: always
 
     # specify the volumes to mount for the db service
     # we're mounting the volume named "anime" inside the container at /data/db directory

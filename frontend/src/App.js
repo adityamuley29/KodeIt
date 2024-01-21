@@ -40,7 +40,7 @@ function App() {
                 <option value="c">C</option>
                 <option value="cpp">C++</option>
                 <option value="py">Python</option>
-                {/* <option value="js">Javascript</option> */}
+                <option value="js">Javascript</option>
               </select>
             </div>
           )}

@@ -13,7 +13,7 @@ const runController = async (req, res) => {
       .status(400)
       .json({ success: "false", error: "Body of code should not be empty!!" });
   }
-  let job;
+  var job = {};
 
   try {
     // we need to generate cpp file with content from the file
@@ -54,8 +54,8 @@ const runController = async (req, res) => {
     job["output"] = JSON.stringify(error);
     await job.save();
 
-    console.log(job);
-    // res.status(500).json({ error });
+    console.log(error);
+    res.status(500).json({ error });
   }
 };
 

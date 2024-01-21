@@ -1,18 +1,20 @@
 FROM node:16.13.0-alpine
 
-RUN addgroup app && adduser -S -G app app
+# RUN addgroup app && adduser -S -G app app
 
-USER app
+# USER app
 
 WORKDIR /app
 
 COPY package*.json ./
 
-USER root
+# USER root
 
-RUN chown -R app:app .
+# RUN chown -R app:app .
 
-USER app
+RUN apk --no-cache add python3 g++ gcc
+
+# USER app
 
 RUN npm install
 
