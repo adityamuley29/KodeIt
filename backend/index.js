@@ -7,7 +7,7 @@ const protect = require("./middleware/authMiddleware");
 
 // Middleware
 const corsConfig = {
-  origin: ["https://kode-it-online-compiler-odi68mnxl-adityamuley.vercel.app", "compiler.adityamuley.tech", "kode-it-online-compiler.vercel.app"],
+  origin: ["https://kode-it-online-compiler-odi68mnxl-adityamuley.vercel.app", "https://compiler.adityamuley.tech", "https://kode-it-online-compiler.vercel.app"],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
 };
